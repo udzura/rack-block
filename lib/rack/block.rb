@@ -1,7 +1,7 @@
 require 'rack'
 module Rack
   class Block
-    autoload :DSL, 'rack/block/dsl'
+    require 'rack/block/dsl'
 
     include DSL::Matchers
     include DSL::Responses
