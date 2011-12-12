@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.version     = Rack::Block::VERSION
   s.authors     = ["Uchio Kondo"]
   s.email       = ["udzura@udzura.jp"]
-  s.homepage    = ""
-  s.summary     = %q{A rack middleware for handling search bot access, ip block, etc.}
-  s.description = %q{A rack middleware for handling search bot access, ip block, etc.}
+  s.homepage    = "http://udzura.jp/rack-block"
+  s.summary     = %q{A rack middleware for controlling accesses by search bot or not, remote ip address, etc.}
+  s.description = %q{A rack middleware for controlling accesses by search bot or not, remote ip address, etc.}
 
   s.rubyforge_project = "rack-block"
 
