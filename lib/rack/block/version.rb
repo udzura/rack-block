@@ -1,5 +1,5 @@
 module Rack
   class Block
-    VERSION = "0.0.1.pre1"
+    VERSION = "0.1.0"
   end
 end

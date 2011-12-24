@@ -26,11 +26,23 @@ module Rack
           path_matchers.each_pair do |path, action_with_args|
             if path =~ req.path_info
               action, *args = action_with_args
-              return send action, *args
+              return send action, req, *args
             end
           end
         end
       end
+
+      self.ip_matchers.each_pair do |pattern, path_matchers|
+        if pattern =~ req.ip
+          path_matchers.each_pair do |path, action_with_args|
+            if path =~ req.path_info
+              action, *args = action_with_args
+              return send action, req, *args
+            end
+          end
+        end
+      end
+
       app.call(env)
     end
     # Your code goes here...
