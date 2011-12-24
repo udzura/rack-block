@@ -12,3 +12,12 @@ require 'rack/builder'
 def mock_app(&block)
   @app = Rack::Builder.new(&block)
 end
+
+if RUBY_VERSION < '1.9'
+  require 'sinatra/base'
+  class DummySinatra < Sinatra::Base
+    get '/' do
+      "This is a dummy access to: #{request.path_info}"
+    end
+  end
+end

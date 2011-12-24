@@ -69,7 +69,7 @@ module Rack::Block::DSL
 
     def do_dummy_app(req, app_proc, opts={})
       case app_proc.arity
-      when 0
+      when -1, 0
         return app_proc.call.call(req.env)
       else
         return app_proc.call(req.env)

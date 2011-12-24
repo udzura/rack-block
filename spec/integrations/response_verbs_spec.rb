@@ -62,12 +62,16 @@ describe "Response value verbs" do
 
   context 'doubling application' do
     require 'sinatra/base'
-    let :dummy do
-      Class.new(Sinatra::Base) do
-        get '/' do
-          "This is a dummy access to: #{request.path_info}"
+    if RUBY_VERSION >= '1.9'
+      let :dummy do
+        Class.new(Sinatra::Base) do
+          get '/' do
+            "This is a dummy access to: #{request.path_info}"
+          end
         end
       end
+    else      
+      let(:dummy) { DummySinatra }
     end
 
     it 'can point access to a dummy application' do
