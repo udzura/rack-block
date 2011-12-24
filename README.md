@@ -78,7 +78,8 @@ No doubt it depends on `rack` (>= 1.3).
     use Rack::Block do
       bot_access do
         path '/secret/*' do
-          double { Dummy.new # is a Rack-compatible app }
+          # TheDummy is a Rack-compatible app
+          double { TheDummy.new }
         end
       end
     end
