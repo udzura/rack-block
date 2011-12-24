@@ -91,11 +91,11 @@ Or please look into `spec/*`
 
 ## Related Sites
 
-* {official}[http://udzura.jp/rack-block]
-* {rubygems.org}[https://rubygems.org/gems/rack-block]
-* {github}[https://github.com/udzura/rack-block]
-* {travis-ci}[http://travis-ci.org/udzura/rack-block] {<img src="https://secure.travis-ci.org/udzura/rack-block.png" alt="build status" />}[http://travis-ci.org/udzura/rack-block]
-* {author's blog}[http://blog.udzura.jp] (Japanese)
+* (official)[http://udzura.jp/rack-block]
+* (rubygems.org)[https://rubygems.org/gems/rack-block]
+* (github)[https://github.com/udzura/rack-block]
+* (travis-ci)[http://travis-ci.org/udzura/rack-block] / <img src="https://secure.travis-ci.org/udzura/rack-block.png" alt="build status" />
+* (author's blog)[http://blog.udzura.jp] (Japanese)
 
 ## Todo
 
