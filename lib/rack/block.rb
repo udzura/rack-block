@@ -17,6 +17,7 @@ module Rack
       @app = app
     end
     
+    attr_reader :app
     attr_accessor :ua_matchers, :ip_matchers
     
     def call(env)
