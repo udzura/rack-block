@@ -16,4 +16,10 @@ begin
 rescue LoadError
 end
 
-
+desc "running pry console with rack-block gem and console helpers loaded"
+task :pry do
+  $LOAD_PATH.unshift('./lib')
+  require 'pry'
+  require 'rack-block'
+  Pry.start
+end

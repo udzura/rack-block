@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "rack", '>= 1.3'
 
   s.add_development_dependency "bundler", '~> 1.1.rc'
+  s.add_development_dependency "pry"
   s.add_development_dependency "rake", '> 0'
   s.add_development_dependency "rspec", '>= 2'
   s.add_development_dependency "rack-test", '> 0'
