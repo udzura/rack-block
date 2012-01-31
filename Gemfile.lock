@@ -15,7 +15,10 @@ GEM
       thor (~> 0.14.6)
     guard-rspec (0.6.0)
       guard (>= 0.10.0)
+    metaclass (0.0.1)
     method_source (0.7.0)
+    mocha (0.10.3)
+      metaclass (~> 0.0.1)
     pry (0.9.8.1)
       coderay (~> 1.0.5)
       method_source (~> 0.7)
@@ -47,6 +50,7 @@ PLATFORMS
 
 DEPENDENCIES
   guard-rspec
+  mocha
   pry
   rack-block!
   rack-test (> 0)

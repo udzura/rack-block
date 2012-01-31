@@ -2,6 +2,10 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 require File.expand_path(File.dirname(__FILE__) + '/mock_app_helper')
 
 describe "Blocking by IP" do
+  before do
+    Rack::Request.any_instance.stubs(:ip).returns('10.20.30.40')
+  end
+
   it 'blocks accesses from a specific IP' do
     mock_app {
       use Rack::Block do
@@ -11,34 +15,38 @@ describe "Blocking by IP" do
       end
       run DEFAULT_APP
     }
-      
-    header "X-Forwarded-For", "10.20.30.40"
+
     ['/', '/any', '/path/blocked'].each do |path|
       get path
       last_response.should be_not_found
     end
   end
 
-  it 'blocks accesses from a specific IP pattern' do
-    mock_app {
-      use Rack::Block do
-        ip_pattern '10.20.30.' do
-          halt 404
+  describe 'blocks accesses from a specific IP pattern' do
+    before do
+      mock_app {
+        use Rack::Block do
+          ip_pattern '10.20.30.' do
+            halt 404
+          end
         end
+        run DEFAULT_APP
+      }
+    end
+    
+    it 'blocks 10.20.30.40 when supplied with 10.20.30.' do
+      ['/', '/any', '/path/blocked'].each do |path|
+        get path
+        last_response.should be_not_found
       end
-      run DEFAULT_APP
-    }
-      
-    header "X-Forwarded-For", "10.20.30.40"
-    ['/', '/any', '/path/blocked'].each do |path|
-      get path
-      last_response.should be_not_found
     end
 
-    header "X-Forwarded-For", "10.20.30.50"
-    ['/', '/any', '/path/blocked'].each do |path|
-      get path
-      last_response.should be_not_found
+    it 'blocks 10.20.30.50 when supplied with 10.20.30.' do
+      Rack::Request.any_instance.stubs(:ip).returns('10.20.30.50')
+      ['/', '/any', '/path/blocked'].each do |path|
+        get path
+        last_response.should be_not_found
+      end
     end
   end
 
@@ -53,13 +61,11 @@ describe "Blocking by IP" do
       run DEFAULT_APP
     }
       
-    header "X-Forwarded-For", "10.20.30.40"
     ['/', '/any', '/path/blocked'].each do |path|
       get path
       last_response.should be_not_found
     end
 
-    header "X-Forwarded-For", "10.20.30.50"
     ['/', '/any', '/path/blocked'].each do |path|
       get path
       last_response.should be_not_found
