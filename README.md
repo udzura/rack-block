@@ -96,6 +96,7 @@ Or please look into `spec/*`
 * (rubygems.org)[https://rubygems.org/gems/rack-block]
 * (github)[https://github.com/udzura/rack-block]
 * (travis-ci)[http://travis-ci.org/udzura/rack-block] / <img src="https://secure.travis-ci.org/udzura/rack-block.png" alt="build status" />
+* (gemnagium)[https://gemnasium.com/udzura/rack-block] / <img src="https://gemnasium.com/udzura/rack-block.png" alt="dep status" />
 * (author's blog)[http://blog.udzura.jp] (Japanese)
 
 ## Todo
