@@ -10,15 +10,17 @@ module Rack
       @_current_matching_type       = nil
       @_current_matching_ua_pattern = nil
       @_current_matching_ip_pattern = nil
+      @_current_matching_all_pattern = nil
       @_current_matching_path       = nil
       @ua_matchers = {}
       @ip_matchers = {}
+      @all_matchers = {}
       instance_eval(&b)
       @app = app
     end
     
     attr_reader :app
-    attr_accessor :ua_matchers, :ip_matchers
+    attr_accessor :ua_matchers, :ip_matchers, :all_matchers
     
     def call(env)
       req = Rack::Request.new(env)
@@ -40,6 +42,15 @@ module Rack
               action, *args = action_with_args
               return send action, req, *args
             end
+          end
+        end
+      end
+
+      self.all_matchers.each_pair do |pattern, path_matchers|
+        path_matchers.each_pair do |path, action_with_args|
+          if path =~ req.path_info
+            action, *args = action_with_args
+            return send action, req, *args
           end
         end
       end
