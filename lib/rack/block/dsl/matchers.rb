@@ -24,8 +24,18 @@ module Rack::Block::DSL
       @_current_matching_type = orig
     end
 
+    def path_pattern(pattern, &block)
+      @_current_matching_type, orig = :by_path, @_current_matching_type
+      @_current_matching_path_pattern, orig_ptn = pattern, @_current_matching_path_pattern
+      yield
+    ensure
+      @_current_matching_path_pattern = orig_ptn
+      @_current_matching_type = orig
+    end
+
     alias block_ua ua_pattern
     alias block_ip ip_pattern
+    alias block_path path_pattern
 
     def path(pattern, &block)
       @_current_matching_path, orig = pattern, @_current_matching_path
@@ -53,6 +63,10 @@ module Rack::Block::DSL
 
     def in_ip_block?
       @_current_matching_type == :by_IP
+    end
+
+    def in_path_block?
+      @_current_matching_type == :by_path
     end
   end
 end
