@@ -59,6 +59,19 @@ No doubt it depends on `rack` (>= 1.3).
     run App.new
 ```
 
+### block accesses from all visitors:
+
+```ruby
+    use Rack::Block do
+      all_access do
+        path '/restricted/*' do
+          halt 404
+        end
+      end
+    end
+    run App.new
+```
+
 ### redirect accesses:
 
 ```ruby
