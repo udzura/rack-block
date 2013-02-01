@@ -45,6 +45,7 @@ module Rack::Block::DSL
     end
 
     private
+    
     def ip_to_pattern(ip_pattern)
       case ip_pattern
       when /^(\d+)(\.\d+){3}$/
