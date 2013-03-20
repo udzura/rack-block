@@ -5,7 +5,7 @@ describe "Blocking all requests" do
   before do
     mock_app do
       use Rack::Block do
-        block_all { halt 404 }
+        all_pattern { halt 404 }
       end
       run DEFAULT_APP
     end
