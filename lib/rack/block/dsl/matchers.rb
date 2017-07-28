@@ -1,4 +1,5 @@
 require 'rack/block/dsl/builtin_bot_pattern'
+require 'rack/block/ipaddr/monkeypatch'
 module Rack::Block::DSL
   module Matchers
     def bot_access(&block)
@@ -42,6 +43,8 @@ module Rack::Block::DSL
       when /^(\d+)(\.\d+){0,2}\.?$/
         ip_pattern = ip_pattern.sub(/\.$/, '')
         Regexp.compile("^" + ip_pattern.gsub('.', '\\.') + '(\\.\\d+)+' + "$")
+      when /^\d+\.\d+\.\d+\.\d+\/\d+$/
+        IPAddr.new(ip_pattern)
       else
         raise ArgumentError, 'passed invalid IP string'
       end
