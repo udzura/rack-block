@@ -4,5 +4,4 @@ rvm:
   - 1.9.2
   - 1.9.3-p0
 notifications:
-  email:
-    - udzura@udzura.jp
+  email: false
