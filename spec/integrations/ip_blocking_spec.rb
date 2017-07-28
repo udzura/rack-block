@@ -50,25 +50,32 @@ describe "Blocking by IP" do
     end
   end
 
-  it 'blocks accesses from a specific IP pattern(with a netmask)' do
-    pending "Not yet implemented, netmask expressions to Regexp or some other matching methods..."
-    mock_app {
-      use Rack::Block do
-        ip_pattern '10.20.30.0/24' do
-          halt 404
+  describe 'blocks accesses from a specific IP pattern(with a netmask)' do
+    before do
+      mock_app {
+        use Rack::Block do
+          ip_pattern '10.20.30.0/24' do
+            halt 404
+          end
         end
-      end
-      run DEFAULT_APP
-    }
-      
-    ['/', '/any', '/path/blocked'].each do |path|
-      get path
-      last_response.should be_not_found
+        run DEFAULT_APP
+      }
     end
 
-    ['/', '/any', '/path/blocked'].each do |path|
-      get path
-      last_response.should be_not_found
+    it 'blocks 10.20.30.40 when supplied with 10.20.30.0/24' do
+      Rack::Request.any_instance.stubs(:ip).returns('10.20.30.40')
+      ['/', '/any', '/path/blocked'].each do |path|
+        get path
+        last_response.should be_not_found
+      end
+    end
+
+    it 'does not block 10.20.31.0 when supplied with 10.20.30.0/24' do
+      Rack::Request.any_instance.stubs(:ip).returns('10.20.31.0')
+      ['/', '/any', '/path/blocked'].each do |path|
+        get path
+        last_response.should be_ok
+      end
     end
   end
 end
