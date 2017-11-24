@@ -5,12 +5,12 @@ begin
   require 'rspec/core/rake_task'
   RSpec::Core::RakeTask.new(:spec) do |spec|
     spec.pattern = FileList['spec/**/*_spec.rb']
-    spec.rspec_opts = "-fs --color"
+    spec.rspec_opts = "-f documentation --color"
   end
 
   RSpec::Core::RakeTask.new(:"spec:integrations") do |spec|
     spec.pattern = FileList['spec/integrations/**/*_spec.rb']
-    spec.rspec_opts = "-fs --color"
+    spec.rspec_opts = "-f documentation --color"
   end
   task :default => :spec
 rescue LoadError
