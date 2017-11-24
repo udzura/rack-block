@@ -4,3 +4,5 @@ pkg/*
 *~
 .rvmrc
 *\#*
+
+Gemfile.lock
