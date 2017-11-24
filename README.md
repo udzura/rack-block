@@ -59,6 +59,19 @@ No doubt it depends on `rack` (>= 1.3).
     run App.new
 ```
 
+### block accesses from all visitors:
+
+```ruby
+    use Rack::Block do
+      all_pattern do
+        path '/restricted/*' do
+          halt 404
+        end
+      end
+    end
+    run App.new
+```
+
 ### redirect accesses:
 
 ```ruby
@@ -108,7 +121,7 @@ Or please look into `spec/*`
 * Passing IP patterns like `'192.0.0.0/24'`...
 
 ## Contributing to rack-block
- 
+
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
 * Fork the project

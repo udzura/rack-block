@@ -5,6 +5,8 @@ module Rack::Block::DSL
         ua_matchers[@_current_matching_ua_pattern] ||= {}
       elsif in_ip_block?
         ip_matchers[@_current_matching_ip_pattern] ||= {}
+      else in_all_block?
+        all_matchers[@_current_matching_all_pattern] ||= {}
       end
     end
 

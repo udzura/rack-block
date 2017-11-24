@@ -24,8 +24,18 @@ module Rack::Block::DSL
       @_current_matching_type = orig
     end
 
+    def all_pattern(&block)
+      @_current_matching_type, orig = :by_all, @_current_matching_type
+      @_current_matching_all_pattern, orig_ptn = /.*/, @_current_matching_all_pattern
+      yield
+    ensure
+      @_current_matching_all_pattern = orig_ptn
+      @_current_matching_type = orig
+    end
+
     alias block_ua ua_pattern
     alias block_ip ip_pattern
+    alias block_all all_pattern
 
     def path(pattern, &block)
       @_current_matching_path, orig = pattern, @_current_matching_path
@@ -35,6 +45,7 @@ module Rack::Block::DSL
     end
 
     private
+    
     def ip_to_pattern(ip_pattern)
       case ip_pattern
       when /^(\d+)(\.\d+){3}$/
@@ -53,6 +64,10 @@ module Rack::Block::DSL
 
     def in_ip_block?
       @_current_matching_type == :by_IP
+    end
+
+    def in_all_block?
+      @_current_matching_type == :by_all
     end
   end
 end
